@@ -14,7 +14,7 @@
 
 /* Graphiques en noir et blanc, 64*32 pixels */
 
-#define PIXEL_SIZE	7
+#define PIXEL_SIZE	10
 #define SCR_X		64
 #define	SCR_Y		32
 
