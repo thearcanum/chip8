@@ -32,11 +32,17 @@ void c8_ginit(c8_t *c8)
 		}
 	}
 
+	/* On charge le fontset à l'adresse 0
+		Les adresses	0x000 -> 0x1FF sont disponibles */
 	for(i=0;i<80;i++)
 		c8->mem[i] = c8_fontset[i];
 	
 	SDL_Init(SDL_INIT_VIDEO);
 	c8->g.scr = SDL_SetVideoMode(SCR_X*PIXEL_SIZE,SCR_Y*PIXEL_SIZE, 32, SDL_HWSURFACE);
+	if(!c8->g.scr) {
+		printf("[c8] Erreur, impossible d'initialiser une fenetre SDL.\n");
+		exit(-1);
+	}
 	SDL_WM_SetCaption("arCanum8 émulateur", NULL);
 
 }
@@ -61,16 +67,16 @@ void c8_gfx(c8_t *c8)
   	c8->V[0xF] = 0;
   	for (i = 0; i < h; i++)
   	{
-    	pixel = c8->mem[c8->I + i];
-    	for(j = 0; j < 8; j++)
-    	{
-		  	if((pixel & (0x80 >> j)) != 0)
-		  	{
-		    	if(c8->g.map[x + j][y + i] == 1)
-		      		c8->V[0xF] = 1;                                 
-		    	c8->g.map[x + j][y + i] ^= 1;
-		  	}
-    	}
+	    	pixel = c8->mem[c8->I + i];
+	    	for(j = 0; j < 8; j++)
+	    	{
+			if((pixel & (0x80 >> j)) != 0)
+			{
+			if(c8->g.map[x + j][y + i] == 1)
+			      	c8->V[0xF] = 1;                                 
+			    c8->g.map[x + j][y + i] ^= 1;
+			}
+	    	}
   	}
 }
 
