@@ -193,7 +193,16 @@ void c8_run(c8_t *c8)
 			c8->V[i] = c8->mem[c8->I + i];
 		break;
 		case 0x0A:
-			c8->pc += 2;
+		i = 0;
+		while(i == 0) {
+			SDL_WaitEvent(&keypress);
+			if(keypress.type == SDL_KEYDOWN)
+				i = 1;
+			if(keypress.type == SDL_QUIT)
+				exit(0);
+			SDL_Delay(20);
+		}
+		c8->V[X] = KEY_MAP(keypress.key.keysym.sym);
 		break;
 
 		case 0x29:
