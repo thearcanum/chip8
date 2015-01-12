@@ -271,60 +271,37 @@ void c8_load_file(c8_t *c8, const char *fname)
 	printf("[c8] %s chargé.\n", fname);
 }
 
+uint8_t KEY_MAP(uint32_t K)
+{
+	uint8_t x;
+
+	switch(K) {
+		case SDLK_AMPERSAND: x = 1; break; // SDLK_1 ne fonctionne pas correctement
+		case SDLK_QUOTEDBL : x = 2; break; 
+		case SDLK_QUOTE : x = 3; break;
+		case SDLK_LEFTPAREN : x = 0xC; break;
+		case SDLK_a: x = 4; break;
+		case SDLK_z: x = 5; break;
+		case SDLK_e: x = 6; break;
+		case SDLK_r: x = 0xD; break;
+		case SDLK_q: x = 7; break;
+		case SDLK_s: x = 8; break;
+		case SDLK_d: x = 9; break;
+		case SDLK_f: x = 0xE; break;
+		case SDLK_w: x = 0xA; break;
+		case SDLK_x: x = 0; break;
+		case SDLK_c: x = 0xB; break;
+		case SDLK_v: x = 0xF; break;
+	}
+
+	return x;
+}
+
 void c8_keys(c8_t *c8, SDL_Event e)
 {
 	uint8_t v = (e.type == SDL_KEYDOWN) ? 1 : 0;
-	switch(e.key.keysym.sym)
-	{
-		case SDLK_LEFT:
-			c8->keys[1] = v;
-			printf("1");
-		break;
-		case SDLK_2:
-			c8->keys[2] = v;
-		break;
-		case SDLK_3:
-			c8->keys[3] = v;
-		break;
-		case SDLK_4:
-			c8->keys[0xC] = v;
-		break;
-		case SDLK_a:
-			c8->keys[4] = v;
-		break;
-		case SDLK_z:
-			c8->keys[5] = v;
-		break;
-		case SDLK_e:
-			c8->keys[6] = v;
-		break;
-		case SDLK_r:
-			c8->keys[0xD] = v;
-		break;
-		case SDLK_q:
-			c8->keys[7] = v;
-		break;
-		case SDLK_s:
-			c8->keys[8] = v;
-		break;
-		case SDLK_d:
-			c8->keys[9] = v;
-		break;
-		case SDLK_f:
-			c8->keys[0xE] = v;
-		break;
-		case SDLK_w:
-			c8->keys[0xA] = v;
-		break;
-		case SDLK_x:
-			c8->keys[0] = v;
-		break;
-		case SDLK_c:
-			c8->keys[0xB] = v;
-		break;
-		case SDLK_v:
-			c8->keys[0xF] = v;
-		break;
-	}
+
+	c8->keys[KEY_MAP(e.key.keysym.sym)] = v;		
 }
+
 
