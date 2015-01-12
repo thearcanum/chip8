@@ -159,7 +159,7 @@ void c8_run(c8_t *c8)
 	break;
 	
 	case 0xC000: /* mov VX, rand ET NN */
-	c8->V[X] = rand() & ((Y << 4) | Z);
+	c8->V[X] = rand() & (c8->opcode & 0xFF);
 	break;
 	
 	case 0xD000: /* dessine sprite 8bit de long N de haut à (VX,VY) */
