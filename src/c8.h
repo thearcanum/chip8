@@ -14,7 +14,7 @@
 
 /* Graphiques en noir et blanc, 64*32 pixels */
 
-#define PIXEL_SIZE	10
+#define PIXEL_SIZE	8
 #define SCR_X		64
 #define	SCR_Y		32
 
@@ -35,8 +35,8 @@ typedef struct
 	uint8_t timer_s;  /* son */
 	
 	uint16_t pc, sp; /* program counter / stack pointer */
-	uint16_t stack[16]; 
-	uint16_t I;
+	uint16_t stack[16]; /* pile de sauvegarde d'adresses */
+	uint16_t I; /* Index */
 	
 	graphics_t g;
 	uint8_t keys[16];
@@ -51,6 +51,7 @@ void c8_gfx(c8_t *);
 void c8_draw(c8_t *);
 void c8_clrscr(c8_t *);
 void c8_keys(c8_t *, SDL_Event);
+uint8_t KEY_MAP(uint32_t);
 
 void _clear();
 
